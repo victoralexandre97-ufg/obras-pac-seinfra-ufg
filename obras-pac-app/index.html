@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEINFRA/UFG - Obras PAC</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        #map { width: 100%; height: 100%; border-radius: 8px; }
+        .leaflet-container { background: var(--surface2); }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <div class="logo-name">SEINFRA/UFG</div>
+            <div class="logo-sub">Painel Obras PAC</div>
+        </div>
+        <div style="display: flex; gap: 16px; align-items: center;">
+            <div class="status-badge">
+                <div class="pulse-dot"></div> DADOS ATIVOS
+            </div>
+            <div style="text-align: right;">
+                <div class="clock-time" id="clock-time">00:00</div>
+                <div class="clock-date" id="clock-date">SEG, 01 JAN</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="slides-container" id="slides-container">
+        <!-- Slide 1: Visão Geral -->
+        <div class="sg-slide active" id="slide-1">
+            <div class="slide-title fade-up-1">ACOMPANHAMENTO GLOBAL DE OBRAS</div>
+            
+            <div class="kpi-row fade-up-2">
+                <div class="kpi-card c-cyan">
+                    <div class="icon-box">🏗️</div>
+                    <div class="kpi-label">Qtd. Obras</div>
+                    <div class="kpi-value" id="kpi-qtd">0</div>
+                    <div class="kpi-sub">Em andamento</div>
+                </div>
+                <div class="kpi-card c-warn">
+                    <div class="icon-box">💰</div>
+                    <div class="kpi-label">Valor Total Contratado</div>
+                    <div class="kpi-value" id="kpi-valor-total">R$ 0,00</div>
+                    <div class="kpi-sub">Soma de contratos</div>
+                </div>
+                <div class="kpi-card c-ok">
+                    <div class="icon-box">✅</div>
+                    <div class="kpi-label">Valor Medido</div>
+                    <div class="kpi-value" id="kpi-valor-medido">R$ 0,00</div>
+                    <div class="kpi-sub">Soma de medições</div>
+                </div>
+                <div class="kpi-card c-blue">
+                    <div class="icon-box">📈</div>
+                    <div class="kpi-label">Avanço Físico Global</div>
+                    <div class="kpi-value" id="kpi-avanco">0%</div>
+                    <div class="kpi-sub">Média ponderada</div>
+                </div>
+            </div>
+
+            <div class="content-row fade-up-3">
+                <div class="content-card">
+                    <div class="card-title">Mapa de Obras</div>
+                    <div class="card-subtitle">Localização georreferenciada</div>
+                    <div class="chart-container" style="margin-top:10px;">
+                        <div id="map"></div>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">Situação das Obras</div>
+                    <div class="card-subtitle">Andamento Físico (%)</div>
+                    <div style="flex:1; overflow-y:auto; margin-top:10px;" id="obras-list">
+                        <!-- JS Injected -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Detalhamento Gráfico -->
+        <div class="sg-slide" id="slide-2">
+            <div class="slide-title fade-up-1">ANDAMENTO FINANCEIRO</div>
+            
+            <div class="content-row fade-up-2">
+                <div class="content-card">
+                    <div class="card-title">Valor Contratado x Medido por Obra</div>
+                    <div class="chart-container">
+                        <canvas id="chart-financeiro"></canvas>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">Dias Corridos vs Faltantes</div>
+                    <div class="chart-container">
+                        <canvas id="chart-prazo"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div style="display:flex; gap: 8px;" id="slide-dots">
+            <!-- Dots injected by JS -->
+        </div>
+        <div style="font-size: 11px; font-style: italic; color: var(--text3);">
+            ATUALIZADO EM TEMPO REAL • SISTEMA SEINFRA
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

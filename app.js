@@ -8,7 +8,7 @@ const formatCurrency = (val) => new Intl.NumberFormat('pt-BR', { style: 'currenc
 // Clock update
 setInterval(() => {
     const now = new Date();
-    document.getElementById('clock-time').textContent = now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit'});
+    document.getElementById('clock-time').textContent = now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
     const days = ['DOM','SEG','TER','QUA','QUI','SEX','SÁB'];
     const months = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
     document.getElementById('clock-date').textContent = `${days[now.getDay()]}, ${String(now.getDate()).padStart(2, '0')} ${months[now.getMonth()]}`;

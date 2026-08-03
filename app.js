@@ -302,24 +302,35 @@ async function init() {
                 ]
             },
             options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: { labels: { color: '#FFF' } },
-            datalabels: {
-                display: true,
-                color: '#FFF',
-                anchor: 'center',
-                align: 'center',
-                formatter: (value) => value
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: '#FFF' } },
+                    datalabels: {
+                        display: true,
+                        color: '#FFF',
+                        anchor: 'center',
+                        align: 'center',
+                        formatter: (value, ctx) => {
+                            const total = ctx.chart.data.datasets.reduce((sum, ds) => sum + ds.data[ctx.dataIndex], 0);
+                            return total ? ((value / total) * 100).toFixed(1) + '%' : '';
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (tooltipItem) => {
+                                const dataset = tooltipItem.dataset;
+                                const value = dataset.data[tooltipItem.dataIndex];
+                                return `${dataset.label}: ${value.toLocaleString()}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: { stacked: true, ticks: { color: '#C0C0D8' }, grid: { display: false } },
+                    y: { stacked: true, ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } }
+                }
             }
-        },
-        scales: {
-            x: { stacked: true, ticks: { color: '#C0C0D8' }, grid: { display: false } },
-            y: { stacked: true, ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } }
-        }
-    },
-
         });
 
         // Chart 2: Prazos (Corridos vs Faltantes)
@@ -328,6 +339,7 @@ async function init() {
 
         new Chart(document.getElementById('chart-prazo'), {
             type: 'bar',
+            indexAxis: 'y',
             data: {
                 labels: labels,
                 datasets: [
@@ -346,14 +358,23 @@ async function init() {
                         anchor: 'center',
                         align: 'center',
                         formatter: (value, ctx) => {
-                            const total = ctx.chart.data.datasets.reduce((sum, ds) => sum + ds.data.reduce((s, v) => s + v, 0), 0);
+                            const total = ctx.chart.data.datasets.reduce((sum, ds) => sum + ds.data[ctx.dataIndex], 0);
                             return total ? ((value / total) * 100).toFixed(1) + '%' : '';
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (tooltipItem) => {
+                                const dataset = tooltipItem.dataset;
+                                const value = dataset.data[tooltipItem.dataIndex];
+                                return `${dataset.label}: ${value.toLocaleString()}`;
+                            }
                         }
                     }
                 },
                 scales: {
-                    x: { ticks: { color: '#C0C0D8' }, grid: { display: false } },
-                    y: { ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } }
+                    x: { stacked: true, ticks: { color: '#C0C0D8' }, grid: { display: false } },
+                    y: { stacked: true, ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } }
                 }
             }
         });

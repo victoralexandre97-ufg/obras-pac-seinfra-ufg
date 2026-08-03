@@ -43,6 +43,9 @@ setInterval(() => {
     if(currentSlide === 0 && window.map) {
         setTimeout(() => window.map.invalidateSize(), 100);
     }
+    if(currentSlide >= 2 && window.obraMaps && window.obraMaps[currentSlide - 2]) {
+        setTimeout(() => window.obraMaps[currentSlide - 2].invalidateSize(), 100);
+    }
 }, 15000); // 15s per slide
 
 // Leaflet Icons
@@ -83,8 +86,9 @@ async function init() {
 
         const bounds = [];
         const obrasListContainer = document.getElementById('obras-list');
+        window.obraMaps = [];
 
-        pac.forEach(obra => {
+        pac.forEach((obra, index) => {
             // Map marker
             if(obra.LATITUDE && obra.LONGITUDE) {
                 L.marker([obra.LATITUDE, obra.LONGITUDE], {icon: customIcon})
@@ -107,6 +111,138 @@ async function init() {
                 </div>
             `;
             obrasListContainer.appendChild(row);
+
+            // Build slide for the obra
+            if (index < 3) {
+                const formatExcelDate = (excelDate) => {
+                    if (!excelDate) return "-";
+                    const date = new Date((excelDate - 25569) * 86400 * 1000);
+                    return date.toLocaleDateString('pt-BR');
+                };
+            
+                const dataInicio = formatExcelDate(obra['INICIO DA OBRA']);
+                const valorContrato = obra['VALOR DO CONTRATO'] || 0;
+                const valorMedido = obra['VALOR MEDIDO'] || 0;
+                const valorRestante = Math.max(0, valorContrato - valorMedido);
+            
+                const html = `
+                    <div class="slide-title fade-up-1">${obra.OBRA.toUpperCase()}</div>
+                    
+                    <div class="content-row fade-up-2" style="grid-template-columns: 1fr 2fr 1fr;">
+                        <!-- Left Column: Info Gerais -->
+                        <div style="display:flex; flex-direction:column; gap:16px;">
+                            <div class="content-card" style="padding: 16px; flex:1;">
+                                <div class="card-subtitle" style="font-size:12px; margin-bottom:4px;">CONTRATADA</div>
+                                <div style="font-weight:700; color:var(--text);">${obra.CONTRATADA || '-'}</div>
+                            </div>
+                            <div class="content-card" style="padding: 16px; flex:1;">
+                                <div class="card-subtitle" style="font-size:12px; margin-bottom:4px;">Nº PROCESSO SEI</div>
+                                <div style="font-weight:700; color:var(--text);">${obra['PROCESSO - SEI'] || '-'}</div>
+                            </div>
+                            <div class="content-card" style="padding: 16px; flex:1;">
+                                <div class="card-subtitle" style="font-size:12px; margin-bottom:4px;">INÍCIO DA OBRA</div>
+                                <div style="font-weight:700; color:var(--text);">${dataInicio}</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Central Column: Analise & Geo -->
+                        <div style="display:flex; flex-direction:row; gap:16px;">
+                            <div class="content-card" style="flex:1;">
+                                <div class="card-title">Análise de Custos</div>
+                                <div class="chart-container" style="min-height:180px; display:flex; justify-content:center; align-items:center;">
+                                    <canvas id="chart-custos-${index}"></canvas>
+                                </div>
+                            </div>
+                            <div class="content-card" style="flex:1;">
+                                <div class="card-title">Geolocalização</div>
+                                <div class="chart-container" style="min-height:180px;">
+                                    <div id="map-obra-${index}" style="width:100%; height:100%; border-radius:8px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Column: Equipe -->
+                        <div class="content-card">
+                            <div class="card-title">Equipe de Fiscalização</div>
+                            <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
+                                <div><div class="card-subtitle" style="font-size:11px;">ARQUITETURA</div><div style="color:var(--text); font-size:14px;">${obra.ARQUITETURA || '-'}</div></div>
+                                <div><div class="card-subtitle" style="font-size:11px;">CIVIL</div><div style="color:var(--text); font-size:14px;">${obra.CIVIL || '-'}</div></div>
+                                <div><div class="card-subtitle" style="font-size:11px;">ELÉTRICA</div><div style="color:var(--text); font-size:14px;">${obra.ELÉTRICA || '-'}</div></div>
+                                <div><div class="card-subtitle" style="font-size:11px;">MECÂNICA</div><div style="color:var(--text); font-size:14px;">${obra.MECÂNICA || '-'}</div></div>
+                                <div><div class="card-subtitle" style="font-size:11px;">SISTEMA DADOS</div><div style="color:var(--text); font-size:14px;">${obra['SISTEMA DADOS'] || '-'}</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom KPIs -->
+                    <div class="kpi-row fade-up-3" style="margin-top:auto;">
+                        <div class="kpi-card c-warn">
+                            <div class="icon-box" style="margin-bottom:0px; display:none;"></div>
+                            <div class="kpi-label">Dias Faltantes</div>
+                            <div class="kpi-value">${obra['DIAS QUE FALTAM'] || 0}</div>
+                        </div>
+                        <div class="kpi-card c-blue">
+                            <div class="kpi-label">Nº de Medições</div>
+                            <div class="kpi-value">${obra['MEDIÇÕES'] || 0}</div>
+                        </div>
+                        <div class="kpi-card c-ok">
+                            <div class="kpi-label">Valor Medido</div>
+                            <div class="kpi-value">${formatCurrency(valorMedido)}</div>
+                        </div>
+                        <div class="kpi-card c-cyan">
+                            <div class="kpi-label">Valor Contrato</div>
+                            <div class="kpi-value">${formatCurrency(valorContrato)}</div>
+                        </div>
+                    </div>
+                `;
+            
+                const slideEl = document.getElementById(`slide-obra-${index}`);
+                if (slideEl) {
+                    slideEl.innerHTML = html;
+                    
+                    // Chart
+                    new Chart(document.getElementById(`chart-custos-${index}`), {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Valor Pago', 'Total Restante a Pagar'],
+                            datasets: [{
+                                data: [valorMedido, valorRestante],
+                                backgroundColor: ['#00E676', '#333348'],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { position: 'bottom', labels: { color: '#FFF' } },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            return formatCurrency(context.raw);
+                                        }
+                                    }
+                                }
+                            },
+                            cutout: '70%'
+                        }
+                    });
+
+                    // Map
+                    if(obra.LATITUDE && obra.LONGITUDE) {
+                        const obraMap = L.map(`map-obra-${index}`, {zoomControl: false}).setView([obra.LATITUDE, obra.LONGITUDE], 14);
+                        window.obraMaps.push(obraMap);
+                        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                            attribution: '&copy; OpenStreetMap',
+                            subdomains: 'abcd',
+                            maxZoom: 20
+                        }).addTo(obraMap);
+                        L.marker([obra.LATITUDE, obra.LONGITUDE], {icon: customIcon}).addTo(obraMap);
+                    } else {
+                        window.obraMaps.push(null);
+                    }
+                }
+            }
         });
 
         if(bounds.length > 0) map.fitBounds(bounds, {padding: [20, 20]});

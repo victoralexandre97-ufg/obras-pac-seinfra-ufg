@@ -13,9 +13,9 @@ const formatCurrency = (val) => new Intl.NumberFormat('pt-BR', { style: 'currenc
 // Clock update
 setInterval(() => {
     const now = new Date();
-    document.getElementById('clock-time').textContent = now.toLocaleTimeString('pt-BR', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
-    const days = ['DOMINGO','SEGUNDA-FEIRA','TERÇA-FEIRA','QUARTA-FEIRA','QUINTA-FEIRA','SEXTA-FEIRA','SÁBADO'];
-    const months = ['JANEIRO','FEVEREIRO','MARÇO','ABRIL','MAIO','JUNHO','JULHO','AGOSTO','SETEMBRO','OUTUBRO','NOVEMBRO','DEZEMBRO'];
+    document.getElementById('clock-time').textContent = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const days = ['DOMINGO', 'SEGUNDA-FEIRA', 'TERÇA-FEIRA', 'QUARTA-FEIRA', 'QUINTA-FEIRA', 'SEXTA-FEIRA', 'SÁBADO'];
+    const months = ['JANEIRO', 'FEVEREIRO', 'MARÇO', 'ABRIL', 'MAIO', 'JUNHO', 'JULHO', 'AGOSTO', 'SETEMBRO', 'OUTUBRO', 'NOVEMBRO', 'DEZEMBRO'];
     document.getElementById('clock-date').textContent = `${days[now.getDay()]}, ${String(now.getDate()).padStart(2, '0')} DE ${months[now.getMonth()]} DE ${now.getFullYear()}`;
 }, 1000);
 
@@ -39,16 +39,16 @@ setInterval(() => {
     slideDotsContainer.children[currentSlide].style.transform = 'scale(1)';
 
     currentSlide = (currentSlide + 1) % slides.length;
-    
+
     slides[currentSlide].classList.add('active');
     slideDotsContainer.children[currentSlide].style.backgroundColor = 'var(--cyan)';
     slideDotsContainer.children[currentSlide].style.transform = 'scale(1.3)';
-    
+
     // Resize map when it becomes visible
-    if(currentSlide === 0 && window.map) {
+    if (currentSlide === 0 && window.map) {
         setTimeout(() => window.map.invalidateSize(), 100);
     }
-    if(currentSlide >= 2 && window.obraMaps && window.obraMaps[currentSlide - 2]) {
+    if (currentSlide >= 2 && window.obraMaps && window.obraMaps[currentSlide - 2]) {
         setTimeout(() => window.obraMaps[currentSlide - 2].invalidateSize(), 100);
     }
 }, 15000); // 15s per slide
@@ -67,7 +67,7 @@ async function init() {
         const res = await fetch('dados_obras.json');
         const pac = await res.json();
 
-        if(!pac || pac.length === 0) return;
+        if (!pac || pac.length === 0) return;
 
         // Process KPIs
         const qtdObras = pac.length;
@@ -81,7 +81,7 @@ async function init() {
         document.getElementById('kpi-avanco').textContent = avgAvanco.toFixed(1) + '%';
 
         // Initialize Map
-        const map = L.map('map', {zoomControl: false}).setView([-16.605, -49.26], 8);
+        const map = L.map('map', { zoomControl: false }).setView([-16.605, -49.26], 8);
         window.map = map;
         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
@@ -95,10 +95,10 @@ async function init() {
 
         pac.forEach((obra, index) => {
             // Map marker
-            if(obra.LATITUDE && obra.LONGITUDE) {
-                L.marker([obra.LATITUDE, obra.LONGITUDE], {icon: customIcon})
-                 .addTo(map)
-                 .bindTooltip(obra.OBRA || 'Obra', {direction: 'top'});
+            if (obra.LATITUDE && obra.LONGITUDE) {
+                L.marker([obra.LATITUDE, obra.LONGITUDE], { icon: customIcon })
+                    .addTo(map)
+                    .bindTooltip(obra.OBRA || 'Obra', { direction: 'top' });
                 bounds.push([obra.LATITUDE, obra.LONGITUDE]);
             }
 
@@ -124,12 +124,12 @@ async function init() {
                     const date = new Date((excelDate - 25569) * 86400 * 1000);
                     return date.toLocaleDateString('pt-BR');
                 };
-            
+
                 const dataInicio = formatExcelDate(obra.INICIO_DA_OBRA);
                 const valorContrato = obra.VALOR_DO_CONTRATO || 0;
                 const valorMedido = obra.VALOR_MEDIDO || 0;
                 const valorRestante = Math.max(0, valorContrato - valorMedido);
-            
+
                 const html = `
                     <div class="obra-container">
                         <div class="obra-title fade-up-1">${obra.OBRA.toUpperCase()}</div>
@@ -184,7 +184,7 @@ async function init() {
                         <div class="kpi-row fade-up-3" style="margin-top:auto;">
                             <div class="kpi-card c-warn">
                                 <div class="kpi-label">Dias Faltantes</div>
-                                <div class="kpi-value" style="font-size:36px;">${obra.DIAS_QUE_FALTAM || 0}</div>
+                                <div class="kpi-value" style="font-size:36px;">${obra.DIAS_ATUAIS_PARA_TERMINO_DE_OBRAS || 0}</div>
                             </div>
                             <div class="kpi-card c-blue">
                                 <div class="kpi-label">Nº de Medições</div>
@@ -201,11 +201,11 @@ async function init() {
                         </div>
                     </div>
                 `;
-            
+
                 const slideEl = document.getElementById(`slide-obra-${index}`);
                 if (slideEl) {
                     slideEl.innerHTML = html;
-                    
+
                     // Chart
                     new Chart(document.getElementById(`chart-custos-${index}`), {
                         type: 'doughnut',
@@ -234,7 +234,7 @@ async function init() {
                                 },
                                 tooltip: {
                                     callbacks: {
-                                        label: function(context) {
+                                        label: function (context) {
                                             return formatCurrency(context.raw);
                                         }
                                     }
@@ -245,15 +245,15 @@ async function init() {
                     });
 
                     // Map
-                    if(obra.LATITUDE && obra.LONGITUDE) {
-                        const obraMap = L.map(`map-obra-${index}`, {zoomControl: false}).setView([obra.LATITUDE, obra.LONGITUDE], 14);
+                    if (obra.LATITUDE && obra.LONGITUDE) {
+                        const obraMap = L.map(`map-obra-${index}`, { zoomControl: false }).setView([obra.LATITUDE, obra.LONGITUDE], 14);
                         window.obraMaps.push(obraMap);
                         L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
                             attribution: '&copy; OpenStreetMap',
                             subdomains: 'abcd',
                             maxZoom: 20
                         }).addTo(obraMap);
-                        L.marker([obra.LATITUDE, obra.LONGITUDE], {icon: customIcon}).addTo(obraMap);
+                        L.marker([obra.LATITUDE, obra.LONGITUDE], { icon: customIcon }).addTo(obraMap);
                     } else {
                         window.obraMaps.push(null);
                     }
@@ -261,7 +261,7 @@ async function init() {
             }
         });
 
-        if(bounds.length > 0) map.fitBounds(bounds, {padding: [20, 20]});
+        if (bounds.length > 0) map.fitBounds(bounds, { padding: [20, 20] });
 
         // Chart 1: Financeiro (Contratado vs Medido)
         const labels = pac.map(o => {

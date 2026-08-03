@@ -302,14 +302,27 @@ async function init() {
                 ]
             },
             options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: '#FFF' } } },
-                scales: {
-                    x: { ticks: { color: '#C0C0D8' }, grid: { display: false } },
-                    y: { ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } }
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { labels: { color: '#FFF' } },
+            datalabels: {
+                display: true,
+                color: '#FFF',
+                anchor: 'center',
+                align: 'center',
+                formatter: (value, ctx) => {
+                    const total = ctx.chart.data.datasets.reduce((sum, ds) => sum + ds.data.reduce((s, v) => s + v, 0), 0);
+                    return total ? ((value / total) * 100).toFixed(1) + '%' : '';
                 }
             }
+        },
+        scales: {
+            x: { ticks: { color: '#C0C0D8' }, grid: { display: false } },
+            y: { ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } }
+        }
+    },
+
         });
 
         // Chart 2: Prazos (Corridos vs Faltantes)
@@ -326,13 +339,24 @@ async function init() {
                 ]
             },
             options: {
-                indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: '#FFF' } } },
+                plugins: {
+                    legend: { labels: { color: '#FFF' } },
+                    datalabels: {
+                        display: true,
+                        color: '#FFF',
+                        anchor: 'center',
+                        align: 'center',
+                        formatter: (value, ctx) => {
+                            const total = ctx.chart.data.datasets.reduce((sum, ds) => sum + ds.data.reduce((s, v) => s + v, 0), 0);
+                            return total ? ((value / total) * 100).toFixed(1) + '%' : '';
+                        }
+                    }
+                },
                 scales: {
-                    x: { ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } },
-                    y: { ticks: { color: '#C0C0D8' }, grid: { display: false } }
+                    x: { ticks: { color: '#C0C0D8' }, grid: { display: false } },
+                    y: { ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } }
                 }
             }
         });

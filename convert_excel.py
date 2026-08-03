@@ -29,7 +29,8 @@ def main():
     df.columns = [normalize_column_name(c) for c in df.columns]
     
     # Replace NaNs with None for valid JSON nulls
-    df = df.where(pd.notnull(df), None)
+    # Cast to object to prevent pandas from converting None back to NaN in float columns
+    df = df.astype(object).where(pd.notnull(df), None)
     
     data = df.to_dict(orient='records')
     

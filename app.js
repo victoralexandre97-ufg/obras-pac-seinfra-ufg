@@ -309,6 +309,9 @@ async function init() {
                     datalabels: {
                         display: true,
                         color: '#FFF',
+                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                        borderRadius: 4,
+                        padding: 4,
                         anchor: 'center',
                         align: 'center',
                         formatter: (value, ctx) => {
@@ -355,6 +358,9 @@ async function init() {
                     datalabels: {
                         display: true,
                         color: '#FFF',
+                        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                        borderRadius: 4,
+                        padding: 4,
                         anchor: 'center',
                         align: 'center',
                         formatter: (value, ctx) => {

@@ -293,8 +293,8 @@ async function init() {
         });
 
         // Chart 2: Prazos (Corridos vs Faltantes)
-        const vCorridos = pac.map(o => o.DIAS_CORRIDOS || 0);
-        const vFaltam = pac.map(o => o.DIAS_QUE_FALTAM || 0);
+        const vCorridos = pac.map(o => o.DIAS_CORRIDOS_DE_OBRA || 0);
+        const vFaltam = pac.map(o => o.DIAS_ATUAIS_PARA_TERMINO_DE_OBRAS || 0);
 
         new Chart(document.getElementById('chart-prazo'), {
             type: 'bar',

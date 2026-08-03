@@ -3,6 +3,11 @@ Chart.defaults.color = '#9090B0';
 Chart.defaults.font.family = "'Inter', sans-serif";
 Chart.defaults.borderColor = '#252535';
 
+if (typeof ChartDataLabels !== 'undefined') {
+    Chart.register(ChartDataLabels);
+    Chart.defaults.plugins.datalabels.display = false; // Disable globally by default
+}
+
 const formatCurrency = (val) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(val || 0);
 
 // Clock update
@@ -126,72 +131,73 @@ async function init() {
                 const valorRestante = Math.max(0, valorContrato - valorMedido);
             
                 const html = `
-                    <div class="slide-title fade-up-1">${obra.OBRA.toUpperCase()}</div>
-                    
-                    <div class="content-row fade-up-2" style="grid-template-columns: 1fr 2fr 1fr;">
-                        <!-- Left Column: Info Gerais -->
-                        <div style="display:flex; flex-direction:column; gap:16px;">
-                            <div class="content-card" style="padding: 16px; flex:1;">
-                                <div class="card-subtitle" style="font-size:12px; margin-bottom:4px;">CONTRATADA</div>
-                                <div style="font-weight:700; color:var(--text);">${obra.CONTRATADA || '-'}</div>
+                    <div class="obra-container">
+                        <div class="obra-title fade-up-1">${obra.OBRA.toUpperCase()}</div>
+                        
+                        <div class="obra-content-row fade-up-2">
+                            <!-- Left Column: Info Gerais -->
+                            <div style="display:flex; flex-direction:column; gap:16px;">
+                                <div class="content-card" style="flex:1; justify-content:center;">
+                                    <div class="obra-info-label">CONTRATADA</div>
+                                    <div class="obra-info-val">${obra.CONTRATADA || '-'}</div>
+                                </div>
+                                <div class="content-card" style="flex:1; justify-content:center;">
+                                    <div class="obra-info-label">Nº PROCESSO SEI</div>
+                                    <div class="obra-info-val">${obra.PROCESSO_SEI || '-'}</div>
+                                </div>
+                                <div class="content-card" style="flex:1; justify-content:center;">
+                                    <div class="obra-info-label">INÍCIO DA OBRA</div>
+                                    <div class="obra-info-val">${dataInicio}</div>
+                                </div>
                             </div>
-                            <div class="content-card" style="padding: 16px; flex:1;">
-                                <div class="card-subtitle" style="font-size:12px; margin-bottom:4px;">Nº PROCESSO SEI</div>
-                                <div style="font-weight:700; color:var(--text);">${obra.PROCESSO_SEI || '-'}</div>
+                            
+                            <!-- Central Column: Analise & Geo -->
+                            <div style="display:flex; flex-direction:row; gap:16px;">
+                                <div class="content-card" style="flex:1;">
+                                    <div class="card-title">Análise de Custos</div>
+                                    <div class="chart-container" style="min-height:180px; display:flex; justify-content:center; align-items:center;">
+                                        <canvas id="chart-custos-${index}"></canvas>
+                                    </div>
+                                </div>
+                                <div class="content-card" style="flex:1;">
+                                    <div class="card-title">Geolocalização</div>
+                                    <div class="chart-container" style="min-height:180px;">
+                                        <div id="map-obra-${index}" style="width:100%; height:100%; border-radius:8px;"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="content-card" style="padding: 16px; flex:1;">
-                                <div class="card-subtitle" style="font-size:12px; margin-bottom:4px;">INÍCIO DA OBRA</div>
-                                <div style="font-weight:700; color:var(--text);">${dataInicio}</div>
+                            
+                            <!-- Right Column: Equipe -->
+                            <div class="content-card">
+                                <div class="card-title">Equipe de Fiscalização</div>
+                                <div style="display:flex; flex-direction:column; gap:16px; margin-top:20px;">
+                                    <div><div class="obra-info-label">ARQUITETURA</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.ARQUITETURA || '-'}</div></div>
+                                    <div><div class="obra-info-label">CIVIL</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.CIVIL || '-'}</div></div>
+                                    <div><div class="obra-info-label">ELÉTRICA</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.ELETRICA || '-'}</div></div>
+                                    <div><div class="obra-info-label">MECÂNICA</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.MECANICA || '-'}</div></div>
+                                    <div><div class="obra-info-label">SISTEMA DADOS</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.SISTEMA_DADOS || '-'}</div></div>
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Central Column: Analise & Geo -->
-                        <div style="display:flex; flex-direction:row; gap:16px;">
-                            <div class="content-card" style="flex:1;">
-                                <div class="card-title">Análise de Custos</div>
-                                <div class="chart-container" style="min-height:180px; display:flex; justify-content:center; align-items:center;">
-                                    <canvas id="chart-custos-${index}"></canvas>
-                                </div>
+                        <!-- Bottom KPIs -->
+                        <div class="kpi-row fade-up-3" style="margin-top:auto;">
+                            <div class="kpi-card c-warn">
+                                <div class="kpi-label">Dias Faltantes</div>
+                                <div class="kpi-value" style="font-size:36px;">${obra.DIAS_QUE_FALTAM || 0}</div>
                             </div>
-                            <div class="content-card" style="flex:1;">
-                                <div class="card-title">Geolocalização</div>
-                                <div class="chart-container" style="min-height:180px;">
-                                    <div id="map-obra-${index}" style="width:100%; height:100%; border-radius:8px;"></div>
-                                </div>
+                            <div class="kpi-card c-blue">
+                                <div class="kpi-label">Nº de Medições</div>
+                                <div class="kpi-value" style="font-size:36px;">${obra.MEDICOES || 0}</div>
                             </div>
-                        </div>
-                        
-                        <!-- Right Column: Equipe -->
-                        <div class="content-card">
-                            <div class="card-title">Equipe de Fiscalização</div>
-                            <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
-                                <div><div class="card-subtitle" style="font-size:11px;">ARQUITETURA</div><div style="color:var(--text); font-size:14px;">${obra.ARQUITETURA || '-'}</div></div>
-                                <div><div class="card-subtitle" style="font-size:11px;">CIVIL</div><div style="color:var(--text); font-size:14px;">${obra.CIVIL || '-'}</div></div>
-                                <div><div class="card-subtitle" style="font-size:11px;">ELÉTRICA</div><div style="color:var(--text); font-size:14px;">${obra.ELETRICA || '-'}</div></div>
-                                <div><div class="card-subtitle" style="font-size:11px;">MECÂNICA</div><div style="color:var(--text); font-size:14px;">${obra.MECANICA || '-'}</div></div>
-                                <div><div class="card-subtitle" style="font-size:11px;">SISTEMA DADOS</div><div style="color:var(--text); font-size:14px;">${obra.SISTEMA_DADOS || '-'}</div></div>
+                            <div class="kpi-card c-ok">
+                                <div class="kpi-label">Valor Medido</div>
+                                <div class="kpi-value" style="font-size:26px;">${formatCurrency(valorMedido)}</div>
                             </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Bottom KPIs -->
-                    <div class="kpi-row fade-up-3" style="margin-top:auto;">
-                        <div class="kpi-card c-warn">
-                            <div class="icon-box" style="margin-bottom:0px; display:none;"></div>
-                            <div class="kpi-label">Dias Faltantes</div>
-                            <div class="kpi-value">${obra.DIAS_QUE_FALTAM || 0}</div>
-                        </div>
-                        <div class="kpi-card c-blue">
-                            <div class="kpi-label">Nº de Medições</div>
-                            <div class="kpi-value">${obra.MEDICOES || 0}</div>
-                        </div>
-                        <div class="kpi-card c-ok">
-                            <div class="kpi-label">Valor Medido</div>
-                            <div class="kpi-value">${formatCurrency(valorMedido)}</div>
-                        </div>
-                        <div class="kpi-card c-cyan">
-                            <div class="kpi-label">Valor Contrato</div>
-                            <div class="kpi-value">${formatCurrency(valorContrato)}</div>
+                            <div class="kpi-card c-cyan">
+                                <div class="kpi-label">Valor Contrato</div>
+                                <div class="kpi-value" style="font-size:26px;">${formatCurrency(valorContrato)}</div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -216,6 +222,16 @@ async function init() {
                             maintainAspectRatio: false,
                             plugins: {
                                 legend: { position: 'bottom', labels: { color: '#FFF' } },
+                                datalabels: {
+                                    display: true,
+                                    color: '#FFFFFF',
+                                    font: { weight: 'bold', size: 14 },
+                                    formatter: (value, context) => {
+                                        const total = context.chart._metasets[context.datasetIndex].total;
+                                        if (total === 0) return '0%';
+                                        return (value / total * 100).toFixed(0) + '%';
+                                    }
+                                },
                                 tooltip: {
                                     callbacks: {
                                         label: function(context) {
@@ -224,7 +240,7 @@ async function init() {
                                     }
                                 }
                             },
-                            cutout: '70%'
+                            cutout: '65%'
                         }
                     });
 

@@ -291,14 +291,14 @@ async function init() {
         });
         const vContrato = pac.map(o => o.VALOR_DO_CONTRATO || 0);
         const vMedido = pac.map(o => o.VALOR_MEDIDO || 0);
-
+        const vRestante = vContrato.map((c, i) => c - vMedido[i]);
         new Chart(document.getElementById('chart-financeiro'), {
             type: 'bar',
             data: {
                 labels: labels,
                 datasets: [
-                    { label: 'Contratado', data: vContrato, backgroundColor: '#00D4FF', borderRadius: 4 },
-                    { label: 'Medido', data: vMedido, backgroundColor: '#00E676', borderRadius: 4 }
+                    { label: 'Medido', data: vMedido, backgroundColor: '#00E676', borderRadius: 4 },
+                    { label: 'Restante', data: vRestante, backgroundColor: '#FF8A80', borderRadius: 4 }
                 ]
             },
             options: {
@@ -311,15 +311,12 @@ async function init() {
                 color: '#FFF',
                 anchor: 'center',
                 align: 'center',
-                formatter: (value, ctx) => {
-                    const total = ctx.chart.data.datasets.reduce((sum, ds) => sum + ds.data.reduce((s, v) => s + v, 0), 0);
-                    return total ? ((value / total) * 100).toFixed(1) + '%' : '';
-                }
+                formatter: (value) => value
             }
         },
         scales: {
-            x: { ticks: { color: '#C0C0D8' }, grid: { display: false } },
-            y: { ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } }
+            x: { stacked: true, ticks: { color: '#C0C0D8' }, grid: { display: false } },
+            y: { stacked: true, ticks: { color: '#C0C0D8' }, grid: { color: '#2A2A35' } }
         }
     },
 

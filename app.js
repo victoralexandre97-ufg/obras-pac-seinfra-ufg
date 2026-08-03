@@ -303,6 +303,7 @@ async function init() {
 
     } catch (e) {
         console.error('Error loading pac data:', e);
+        document.body.innerHTML += `<div style="position:absolute;top:0;left:0;background:red;color:white;z-index:9999;padding:20px;font-size:18px;">ERRO: ${e.message} <br> ${e.stack}</div>`;
     }
 }
 

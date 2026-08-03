@@ -73,7 +73,7 @@ async function init() {
         const qtdObras = pac.length;
         const totalContrato = pac.reduce((acc, curr) => acc + (curr.VALOR_DO_CONTRATO || 0), 0);
         const totalMedido = pac.reduce((acc, curr) => acc + (curr.VALOR_MEDIDO || 0), 0);
-        const avgAvanco = (pac.reduce((acc, curr) => acc + (curr.ANDAMENTO_PERCENTUAL || 0), 0) / qtdObras) * 100;
+        const avgAvanco = (pac.reduce((acc, curr) => acc + (curr.PERCENTUAL_DE_ANDAMENTO || 0), 0) / qtdObras) * 100;
 
         document.getElementById('kpi-qtd').textContent = qtdObras;
         document.getElementById('kpi-valor-total').textContent = formatCurrency(totalContrato);
@@ -103,7 +103,7 @@ async function init() {
             }
 
             // Obras List Item (using HTML bar)
-            const avanco = (obra.ANDAMENTO_PERCENTUAL || 0) * 100;
+            const avanco = (obra.PERCENTUAL_DE_ANDAMENTO || 0) * 100;
             const row = document.createElement('div');
             row.style.marginBottom = '12px';
             row.innerHTML = `

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,10 +10,18 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
-        #map { width: 100%; height: 100%; border-radius: 8px; }
-        .leaflet-container { background: var(--surface2); }
+        #map {
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+        }
+
+        .leaflet-container {
+            background: var(--surface2);
+        }
     </style>
 </head>
+
 <body>
     <header>
         <div>
@@ -34,7 +43,7 @@
         <!-- Slide 1: Visão Geral -->
         <div class="sg-slide active" id="slide-1">
             <div class="slide-title fade-up-1">ACOMPANHAMENTO GLOBAL DE OBRAS</div>
-            
+
             <div class="kpi-row fade-up-2">
                 <div class="kpi-card c-cyan">
                     <div class="icon-box">🏗️</div>
@@ -83,7 +92,7 @@
         <!-- Slide 2: Detalhamento Gráfico -->
         <div class="sg-slide" id="slide-2">
             <div class="slide-title fade-up-1">ANDAMENTO FINANCEIRO</div>
-            
+
             <div class="content-row fade-up-2">
                 <div class="content-card">
                     <div class="card-title">Valor Contratado x Medido por Obra</div>
@@ -118,6 +127,7 @@
         </div>
     </footer>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=2"></script>
 </body>
+
 </html>

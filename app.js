@@ -59,16 +59,16 @@ const customIcon = L.divIcon({
 // Data Fetching and Chart Rendering
 async function init() {
     try {
-        const res = await fetch('pac_data.json');
+        const res = await fetch('dados_obras.json');
         const pac = await res.json();
 
         if(!pac || pac.length === 0) return;
 
         // Process KPIs
         const qtdObras = pac.length;
-        const totalContrato = pac.reduce((acc, curr) => acc + (curr['VALOR DO CONTRATO'] || 0), 0);
-        const totalMedido = pac.reduce((acc, curr) => acc + (curr['VALOR MEDIDO'] || 0), 0);
-        const avgAvanco = (pac.reduce((acc, curr) => acc + (curr['ANDAMENTO %'] || 0), 0) / qtdObras) * 100;
+        const totalContrato = pac.reduce((acc, curr) => acc + (curr.VALOR_DO_CONTRATO || 0), 0);
+        const totalMedido = pac.reduce((acc, curr) => acc + (curr.VALOR_MEDIDO || 0), 0);
+        const avgAvanco = (pac.reduce((acc, curr) => acc + (curr.ANDAMENTO_PERCENTUAL || 0), 0) / qtdObras) * 100;
 
         document.getElementById('kpi-qtd').textContent = qtdObras;
         document.getElementById('kpi-valor-total').textContent = formatCurrency(totalContrato);
@@ -98,7 +98,7 @@ async function init() {
             }
 
             // Obras List Item (using HTML bar)
-            const avanco = (obra['ANDAMENTO %'] || 0) * 100;
+            const avanco = (obra.ANDAMENTO_PERCENTUAL || 0) * 100;
             const row = document.createElement('div');
             row.style.marginBottom = '12px';
             row.innerHTML = `
@@ -120,9 +120,9 @@ async function init() {
                     return date.toLocaleDateString('pt-BR');
                 };
             
-                const dataInicio = formatExcelDate(obra['INICIO DA OBRA']);
-                const valorContrato = obra['VALOR DO CONTRATO'] || 0;
-                const valorMedido = obra['VALOR MEDIDO'] || 0;
+                const dataInicio = formatExcelDate(obra.INICIO_DA_OBRA);
+                const valorContrato = obra.VALOR_DO_CONTRATO || 0;
+                const valorMedido = obra.VALOR_MEDIDO || 0;
                 const valorRestante = Math.max(0, valorContrato - valorMedido);
             
                 const html = `
@@ -137,7 +137,7 @@ async function init() {
                             </div>
                             <div class="content-card" style="padding: 16px; flex:1;">
                                 <div class="card-subtitle" style="font-size:12px; margin-bottom:4px;">Nº PROCESSO SEI</div>
-                                <div style="font-weight:700; color:var(--text);">${obra['PROCESSO - SEI'] || '-'}</div>
+                                <div style="font-weight:700; color:var(--text);">${obra.PROCESSO_SEI || '-'}</div>
                             </div>
                             <div class="content-card" style="padding: 16px; flex:1;">
                                 <div class="card-subtitle" style="font-size:12px; margin-bottom:4px;">INÍCIO DA OBRA</div>
@@ -167,9 +167,9 @@ async function init() {
                             <div style="display:flex; flex-direction:column; gap:12px; margin-top:12px;">
                                 <div><div class="card-subtitle" style="font-size:11px;">ARQUITETURA</div><div style="color:var(--text); font-size:14px;">${obra.ARQUITETURA || '-'}</div></div>
                                 <div><div class="card-subtitle" style="font-size:11px;">CIVIL</div><div style="color:var(--text); font-size:14px;">${obra.CIVIL || '-'}</div></div>
-                                <div><div class="card-subtitle" style="font-size:11px;">ELÉTRICA</div><div style="color:var(--text); font-size:14px;">${obra.ELÉTRICA || '-'}</div></div>
-                                <div><div class="card-subtitle" style="font-size:11px;">MECÂNICA</div><div style="color:var(--text); font-size:14px;">${obra.MECÂNICA || '-'}</div></div>
-                                <div><div class="card-subtitle" style="font-size:11px;">SISTEMA DADOS</div><div style="color:var(--text); font-size:14px;">${obra['SISTEMA DADOS'] || '-'}</div></div>
+                                <div><div class="card-subtitle" style="font-size:11px;">ELÉTRICA</div><div style="color:var(--text); font-size:14px;">${obra.ELETRICA || '-'}</div></div>
+                                <div><div class="card-subtitle" style="font-size:11px;">MECÂNICA</div><div style="color:var(--text); font-size:14px;">${obra.MECANICA || '-'}</div></div>
+                                <div><div class="card-subtitle" style="font-size:11px;">SISTEMA DADOS</div><div style="color:var(--text); font-size:14px;">${obra.SISTEMA_DADOS || '-'}</div></div>
                             </div>
                         </div>
                     </div>
@@ -179,11 +179,11 @@ async function init() {
                         <div class="kpi-card c-warn">
                             <div class="icon-box" style="margin-bottom:0px; display:none;"></div>
                             <div class="kpi-label">Dias Faltantes</div>
-                            <div class="kpi-value">${obra['DIAS QUE FALTAM'] || 0}</div>
+                            <div class="kpi-value">${obra.DIAS_QUE_FALTAM || 0}</div>
                         </div>
                         <div class="kpi-card c-blue">
                             <div class="kpi-label">Nº de Medições</div>
-                            <div class="kpi-value">${obra['MEDIÇÕES'] || 0}</div>
+                            <div class="kpi-value">${obra.MEDICOES || 0}</div>
                         </div>
                         <div class="kpi-card c-ok">
                             <div class="kpi-label">Valor Medido</div>
@@ -253,8 +253,8 @@ async function init() {
             if (nome.length > 20) nome = nome.substring(0, 17) + '...';
             return nome;
         });
-        const vContrato = pac.map(o => o['VALOR DO CONTRATO'] || 0);
-        const vMedido = pac.map(o => o['VALOR MEDIDO'] || 0);
+        const vContrato = pac.map(o => o.VALOR_DO_CONTRATO || 0);
+        const vMedido = pac.map(o => o.VALOR_MEDIDO || 0);
 
         new Chart(document.getElementById('chart-financeiro'), {
             type: 'bar',
@@ -277,8 +277,8 @@ async function init() {
         });
 
         // Chart 2: Prazos (Corridos vs Faltantes)
-        const vCorridos = pac.map(o => o['DIAS CORRIDOS'] || 0);
-        const vFaltam = pac.map(o => o['DIAS QUE FALTAM'] || 0);
+        const vCorridos = pac.map(o => o.DIAS_CORRIDOS || 0);
+        const vFaltam = pac.map(o => o.DIAS_QUE_FALTAM || 0);
 
         new Chart(document.getElementById('chart-prazo'), {
             type: 'bar',

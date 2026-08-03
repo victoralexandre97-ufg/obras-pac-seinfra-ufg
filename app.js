@@ -30,6 +30,26 @@ slides.forEach((_, i) => {
     dot.style.animation = 'none';
     dot.style.backgroundColor = i === 0 ? 'var(--cyan)' : 'var(--border2)';
     dot.style.transition = 'all 0.3s ease';
+    dot.dataset.index = i; // store index
+    dot.addEventListener('click', () => {
+        // manually switch slide
+        // deactivate current
+        slides[currentSlide].classList.remove('active');
+        slideDotsContainer.children[currentSlide].style.backgroundColor = 'var(--border2)';
+        slideDotsContainer.children[currentSlide].style.transform = 'scale(1)';
+        // set new
+        currentSlide = parseInt(dot.dataset.index, 10);
+        slides[currentSlide].classList.add('active');
+        slideDotsContainer.children[currentSlide].style.backgroundColor = 'var(--cyan)';
+        slideDotsContainer.children[currentSlide].style.transform = 'scale(1.3)';
+        // Resize map if needed
+        if (currentSlide === 0 && window.map) {
+            setTimeout(() => window.map.invalidateSize(), 100);
+        }
+        if (currentSlide >= 2 && window.obraMaps && window.obraMaps[currentSlide - 2]) {
+            setTimeout(() => window.obraMaps[currentSlide - 2].invalidateSize(), 100);
+        }
+    });
     slideDotsContainer.appendChild(dot);
 });
 

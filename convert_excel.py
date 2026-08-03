@@ -26,6 +26,9 @@ def main():
         print(f"Erro ao ler o arquivo excel: {e}")
         return
         
+    # Discard any unnamed column (e.g., the first blank column "Unnamed: 0")
+    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+
     df.columns = [normalize_column_name(c) for c in df.columns]
     
     # Replace NaNs with None for valid JSON nulls

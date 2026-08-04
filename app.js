@@ -20,17 +20,6 @@ setInterval(() => {
 }, 1000);
 
 // Slideshow logic
-// --- Fluid container observer (optional) ---
-const slidesWrapper = document.getElementById('slides-container');
-if (slidesWrapper) {
-  const ro = new ResizeObserver(entries => {
-    for (const entry of entries) {
-      // expose the container width as a CSS custom property (in case we need it)
-      slidesWrapper.style.setProperty('--container-width', `${entry.contentRect.width}px`);
-    }
-  });
-  ro.observe(slidesWrapper);
-}
 const slides = document.querySelectorAll('.sg-slide');
 let currentSlide = 0;
 const slideDotsContainer = document.getElementById('slide-dots');

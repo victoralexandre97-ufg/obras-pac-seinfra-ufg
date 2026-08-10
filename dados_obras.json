@@ -20,13 +20,14 @@
     "LINK_DO_PROJETO_DA_OBRA": "https://acc.autodesk.eu/project-admin/members/projects/b1089200-2fac-4184-b582-a3818bef67b7",
     "LINK_DIARIO_DA_OBRA": "https://drive.google.com/uc?id=1vu0X9UvUsnkeASlFHQNQm3IQz-NLEn_R",
     "IMAGEM_URL": "https://drive.google.com/file/d/1vu0X9UvUsnkeASlFHQNQm3IQz-NLEn_R/view?usp=sharing",
+    "VALOR_DO_CONTRATO_REAJUSTE": 18991894.79,
     "VALOR_MEDIDO": 3659723.13,
     "MEDICOES": 6,
-    "PERCENTUAL_DE_ANDAMENTO": 0.20446630760367004,
+    "PERCENTUAL_DE_ANDAMENTO": 0.19269921039826907,
     "DIAS_TOTAIS_DE_PRAZO_PARA_TERMINO_DE_OBRA": 800,
-    "DIAS_ATUAIS_PARA_TERMINO_DE_OBRAS": 226,
-    "DIAS_CORRIDOS_DE_OBRA": 574,
-    "DIA_ATUAL": 46237
+    "DIAS_ATUAIS_PARA_TERMINO_DE_OBRAS": 219,
+    "DIAS_CORRIDOS_DE_OBRA": 581,
+    "DIA_ATUAL": 46244
   },
   {
     "OBRA": "CA - UFG Cidade de Goias",
@@ -49,13 +50,14 @@
     "LINK_DO_PROJETO_DA_OBRA": "https://acc.autodesk.eu/project-admin/members/projects/1740b254-0b2a-42fc-87e6-5db6210bc6e8",
     "LINK_DIARIO_DA_OBRA": "https://drive.google.com/uc?id=1fxLHC3fSn6jSIGPBi0yThtwKdCM7YpLW",
     "IMAGEM_URL": "https://drive.google.com/file/d/1fxLHC3fSn6jSIGPBi0yThtwKdCM7YpLW/view?usp=sharing",
+    "VALOR_DO_CONTRATO_REAJUSTE": 6985438.39,
     "VALOR_MEDIDO": 2102475.0,
     "MEDICOES": 9,
-    "PERCENTUAL_DE_ANDAMENTO": 0.3144122925078511,
+    "PERCENTUAL_DE_ANDAMENTO": 0.30097967838493817,
     "DIAS_TOTAIS_DE_PRAZO_PARA_TERMINO_DE_OBRA": 629,
-    "DIAS_ATUAIS_PARA_TERMINO_DE_OBRAS": 52,
-    "DIAS_CORRIDOS_DE_OBRA": 577,
-    "DIA_ATUAL": 46237
+    "DIAS_ATUAIS_PARA_TERMINO_DE_OBRAS": 45,
+    "DIAS_CORRIDOS_DE_OBRA": 584,
+    "DIA_ATUAL": 46244
   },
   {
     "OBRA": "RU - UFG Aparecida ",
@@ -78,12 +80,13 @@
     "LINK_DO_PROJETO_DA_OBRA": "https://acc.autodesk.eu/project-admin/members/projects/c6b906c4-4239-4423-8116-33059a665649",
     "LINK_DIARIO_DA_OBRA": "https://drive.google.com/uc?id=15Nf9amtoHmFFVbPrDn8Faz8ArIWqZ1nY",
     "IMAGEM_URL": "https://drive.google.com/file/d/15Nf9amtoHmFFVbPrDn8Faz8ArIWqZ1nY/view?usp=sharing",
-    "VALOR_MEDIDO": 4732904.41,
-    "MEDICOES": 11,
-    "PERCENTUAL_DE_ANDAMENTO": 0.6310539213333334,
+    "VALOR_DO_CONTRATO_REAJUSTE": 7500000.0,
+    "VALOR_MEDIDO": 7145747.54,
+    "MEDICOES": 15,
+    "PERCENTUAL_DE_ANDAMENTO": 0.9527663386666667,
     "DIAS_TOTAIS_DE_PRAZO_PARA_TERMINO_DE_OBRA": 539,
     "DIAS_ATUAIS_PARA_TERMINO_DE_OBRAS": 0,
-    "DIAS_CORRIDOS_DE_OBRA": 577,
-    "DIA_ATUAL": 46237
+    "DIAS_CORRIDOS_DE_OBRA": 584,
+    "DIA_ATUAL": 46244
   }
 ]

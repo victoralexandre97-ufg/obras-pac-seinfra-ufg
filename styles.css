@@ -169,13 +169,27 @@ footer {
   flex-direction: column;
 }
 
-/* Chart.js and Leaflet.js container sizing */
+/* Requirement 4: Chart.js and Leaflet.js container sizing */
 .chart-container {
   flex: 1;
   width: 100%;
   height: 100%;
   position: relative;
   min-height: clamp(180px, 24vh, 400px);
+}
+
+/* Enhanced Leaflet Dark Map Labels */
+.leaflet-container {
+  background: #09090D !important;
+}
+.leaflet-tile {
+  filter: brightness(1.1) contrast(1.2);
+}
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+  background: var(--surface2) !important;
+  color: var(--text) !important;
+  font-weight: 700;
+  border: 1px solid var(--border2);
 }
 
 /* Status & Utils */

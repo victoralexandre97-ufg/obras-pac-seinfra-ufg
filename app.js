@@ -103,7 +103,7 @@ async function init() {
         // Initialize Map
         const map = L.map('map', { zoomControl: false }).setView([-16.605, -49.26], 8);
         window.map = map;
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; OpenStreetMap',
             subdomains: 'abcd',
             maxZoom: 20

@@ -245,9 +245,9 @@ th { font-size: clamp(11px, 0.9vw, 16px); font-weight: 800; color: var(--text2);
 td { font-size: clamp(12px, 1vw, 18px); font-weight: 400; color: var(--text); padding: clamp(8px, 1vh, 14px) clamp(10px, 1.2vw, 18px); border-bottom: 1px solid rgba(255,255,255,0.03); }
 .td-mono { font-family: 'JetBrains Mono', monospace; }
 
-/* Obras Específicas (Slides 3, 4, 5) - Escaladas e Ampliadas para Telas Maiores (46"+) */
-.obra-title { font-size: clamp(24px, 2.6vw, 46px); font-weight: 900; color: var(--text); letter-spacing: 0.02em; text-align: center; margin-bottom: clamp(16px, 2.2vh, 36px); text-shadow: 0 0 16px rgba(255,255,255,0.1); }
-.obra-container { display: flex; flex-direction: column; height: 100%; justify-content: center; margin: auto; width: 100%; max-width: 1750px; padding: clamp(12px, 1.8vh, 28px) 0; }
-.obra-content-row { display: grid; grid-template-columns: 1fr 1.6fr 1.1fr; gap: clamp(16px, 2vw, 32px); margin-bottom: clamp(20px, 2.5vh, 40px); align-items: stretch; }
-.obra-info-val { font-size: clamp(14px, 1.3vw, 22px); font-weight: 700; color: var(--text); margin-top: clamp(4px, 0.6vh, 10px); }
-.obra-info-label { font-size: clamp(10px, 0.8vw, 14px); color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; }
+/* Obras Específicas (Slides 3, 4, 5) - Escaladas e Ampliadas em +15% para Telas de 46"+ */
+.obra-title { font-size: clamp(28px, 3.2vw, 54px); font-weight: 900; color: var(--text); letter-spacing: 0.02em; text-align: center; margin-bottom: clamp(20px, 2.6vh, 44px); text-shadow: 0 0 16px rgba(255,255,255,0.1); }
+.obra-container { display: flex; flex-direction: column; height: 100%; justify-content: center; margin: auto; width: 100%; max-width: 1900px; padding: clamp(16px, 2.2vh, 34px) 0; }
+.obra-content-row { display: grid; grid-template-columns: 1fr 1.6fr 1.1fr; gap: clamp(20px, 2.4vw, 38px); margin-bottom: clamp(24px, 3vh, 48px); align-items: stretch; }
+.obra-info-val { font-size: clamp(16px, 1.5vw, 26px); font-weight: 700; color: var(--text); margin-top: clamp(6px, 0.8vh, 12px); }
+.obra-info-label { font-size: clamp(12px, 0.95vw, 16px); color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; }

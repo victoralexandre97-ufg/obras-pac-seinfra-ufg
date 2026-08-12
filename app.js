@@ -8,6 +8,25 @@ if (typeof ChartDataLabels !== 'undefined') {
     Chart.defaults.plugins.datalabels.display = false; // Disable globally by default
 }
 
+// Automatic Screen Size Parameterization (46"+ vs <= 40")
+function updateScreenSizeMode() {
+    const body = document.body;
+    const width = window.innerWidth || document.documentElement.clientWidth || screen.width;
+    
+    body.classList.remove('screen-46', 'screen-40');
+    if (width <= 1600) {
+        // Screens <= 40" (60% reduction)
+        body.classList.add('screen-40');
+    } else {
+        // Screens >= 46" (Full scale / current size)
+        body.classList.add('screen-46');
+    }
+}
+
+window.addEventListener('resize', updateScreenSizeMode);
+document.addEventListener('DOMContentLoaded', updateScreenSizeMode);
+updateScreenSizeMode();
+
 const formatCurrency = (val) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(val || 0);
 
 // Clock update
@@ -191,11 +210,11 @@ async function init() {
                             <div class="content-card">
                                 <div class="card-title">Equipe de Fiscalização</div>
                                 <div style="display:flex; flex-direction:column; gap:16px; margin-top:20px;">
-                                    <div><div class="obra-info-label">ARQUITETURA</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.ARQUITETURA || '-'}</div></div>
-                                    <div><div class="obra-info-label">CIVIL</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.CIVIL || '-'}</div></div>
-                                    <div><div class="obra-info-label">ELÉTRICA</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.ELETRICA || '-'}</div></div>
-                                    <div><div class="obra-info-label">MECÂNICA</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.MECANICA || '-'}</div></div>
-                                    <div><div class="obra-info-label">SISTEMA DADOS</div><div class="obra-info-val" style="margin-top:2px; font-size:14px;">${obra.SISTEMA_DADOS || '-'}</div></div>
+                                    <div><div class="obra-info-label">ARQUITETURA</div><div class="obra-info-val obra-team-val" style="margin-top:2px;">${obra.ARQUITETURA || '-'}</div></div>
+                                    <div><div class="obra-info-label">CIVIL</div><div class="obra-info-val obra-team-val" style="margin-top:2px;">${obra.CIVIL || '-'}</div></div>
+                                    <div><div class="obra-info-label">ELÉTRICA</div><div class="obra-info-val obra-team-val" style="margin-top:2px;">${obra.ELETRICA || '-'}</div></div>
+                                    <div><div class="obra-info-label">MECÂNICA</div><div class="obra-info-val obra-team-val" style="margin-top:2px;">${obra.MECANICA || '-'}</div></div>
+                                    <div><div class="obra-info-label">SISTEMA DADOS</div><div class="obra-info-val obra-team-val" style="margin-top:2px;">${obra.SISTEMA_DADOS || '-'}</div></div>
                                 </div>
                             </div>
                         </div>
@@ -204,19 +223,19 @@ async function init() {
                         <div class="kpi-row fade-up-3" style="margin-top:auto;">
                             <div class="kpi-card c-warn">
                                 <div class="kpi-label">Dias Faltantes</div>
-                                <div class="kpi-value" style="font-size:36px;">${obra.DIAS_ATUAIS_PARA_TERMINO_DE_OBRAS || 0}</div>
+                                <div class="kpi-value obra-kpi-large">${obra.DIAS_ATUAIS_PARA_TERMINO_DE_OBRAS || 0}</div>
                             </div>
                             <div class="kpi-card c-blue">
                                 <div class="kpi-label">Nº de Medições</div>
-                                <div class="kpi-value" style="font-size:36px;">${obra.MEDICOES || 0}</div>
+                                <div class="kpi-value obra-kpi-large">${obra.MEDICOES || 0}</div>
                             </div>
                             <div class="kpi-card c-ok">
                                 <div class="kpi-label">Valor Medido</div>
-                                <div class="kpi-value" style="font-size:26px;">${formatCurrency(valorMedido)}</div>
+                                <div class="kpi-value obra-kpi-med">${formatCurrency(valorMedido)}</div>
                             </div>
                             <div class="kpi-card c-cyan">
                                 <div class="kpi-label">Valor Contrato</div>
-                                <div class="kpi-value" style="font-size:26px;">${formatCurrency(valorContrato)}</div>
+                                <div class="kpi-value obra-kpi-med">${formatCurrency(valorContrato)}</div>
                             </div>
                         </div>
                     </div>

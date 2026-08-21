@@ -183,11 +183,11 @@ async function init() {
                             <div style="display:flex; flex-direction:column; gap:16px;">
                                 <div class="content-card" style="flex:1; justify-content:center;">
                                     <div class="obra-info-label">CONTRATADA</div>
-                                    <div class="obra-info-val">${obra.CONTRATADA || '-'}</div>
+                                    <div class="obra-info-val" style="font-size: clamp(14px, 1.3vw, 24px);">${obra.CONTRATADA || '-'}</div>
                                 </div>
                                 <div class="content-card" style="flex:1; justify-content:center;">
                                     <div class="obra-info-label">Nº PROCESSO SEI</div>
-                                    <div class="obra-info-val">${obra.PROCESSO_SEI || '-'}</div>
+                                    <div class="obra-info-val" style="font-size: clamp(14px, 1.3vw, 24px);">${obra.PROCESSO_SEI || '-'}</div>
                                 </div>
                                 <div class="content-card" style="flex:1; justify-content:center;">
                                     <div class="obra-info-label">INÍCIO DA OBRA</div>

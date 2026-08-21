@@ -21,6 +21,8 @@
   --danger: #FF4444;
   --blue: #4B8BFF;
   --purple: #9B59FF;
+
+  --scale-ui: 1;
 }
 
 * {
@@ -45,13 +47,19 @@ body {
   flex-direction: column;
 }
 
+body.screen-20 { --scale-ui: 0.2; }
+body.screen-40 { --scale-ui: 0.4; }
+body.screen-60 { --scale-ui: 0.6; }
+body.screen-46 { --scale-ui: 1; }
+body.screen-46xl { --scale-ui: 1.2; }
+
 /* Typography (Requirement 1: Fluid with clamp()) */
 .logo-name { font-size: clamp(18px, 1.8vw, 32px); font-weight: 800; color: var(--cyan); letter-spacing: -0.5px; text-shadow: 0 0 24px rgba(0,212,255,0.35); }
 .logo-sub { font-size: clamp(10px, 0.9vw, 18px); font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: 0.12em; }
 .slide-title { font-size: clamp(16px, 1.8vw, 32px); font-weight: 800; color: var(--text); letter-spacing: 0.04em; }
 
 .kpi-label { font-size: clamp(11px, 0.9vw, 18px); font-weight: 800; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; }
-.kpi-value { font-size: clamp(16px, 2.5vw, 40px); font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+.kpi-value { font-size: clamp(16px, calc(2.5vw * var(--scale-ui)), 40px); font-weight: 800; font-family: 'JetBrains Mono', monospace; }
 .kpi-sub { font-size: clamp(10px, 0.8vw, 16px); font-weight: 500; color: rgba(255,255,255,0.7); }
 
 .card-title { font-size: clamp(15px, 1.4vw, 24px); font-weight: 800; color: #ffffff; letter-spacing: 0.01em; margin-bottom: clamp(4px, 0.6vh, 10px); display: flex; align-items: center;}
@@ -245,40 +253,14 @@ th { font-size: clamp(11px, 0.9vw, 16px); font-weight: 800; color: var(--text2);
 td { font-size: clamp(12px, 1vw, 18px); font-weight: 400; color: var(--text); padding: clamp(8px, 1vh, 14px) clamp(10px, 1.2vw, 18px); border-bottom: 1px solid rgba(255,255,255,0.03); }
 .td-mono { font-family: 'JetBrains Mono', monospace; }
 
-/* Obras Específicas (Slides 3, 4, 5) - Parametrização para Telas 46"+ vs <= 40" */
-:root {
-  --obra-scale: 1; /* Padrão 46"+ (tamanho atual perfeito) */
-}
-
-/* Telas <= 40" (Redução de 60%, fator 0.4) */
-@media screen and (max-width: 1600px) {
-  :root {
-    --obra-scale: 0.4;
-  }
-}
-
-/* Telas >= 46" (Tamanho normal / atual) */
-@media screen and (min-width: 1601px) {
-  :root {
-    --obra-scale: 1;
-  }
-}
-
-body.screen-40 {
-  --obra-scale: 0.4;
-}
-
-body.screen-46 {
-  --obra-scale: 1;
-}
-
+/* Obras Específicas (Slides 3, 4, 5) */
 .obra-title { 
-  font-size: calc(clamp(38px, 5.5vw, 86px) * var(--obra-scale)); 
+  font-size: clamp(38px, 5.5vw, 86px); 
   font-weight: 900; 
   color: var(--text); 
   letter-spacing: 0.02em; 
   text-align: center; 
-  margin-bottom: calc(clamp(30px, 4vh, 70px) * var(--obra-scale)); 
+  margin-bottom: clamp(30px, 4vh, 70px); 
   text-shadow: 0 0 16px rgba(255,255,255,0.1); 
 }
 .obra-container { 
@@ -289,20 +271,20 @@ body.screen-46 {
   margin: auto; 
   width: 100%; 
   max-width: 2500px; 
-  padding: calc(clamp(24px, 3.5vh, 50px) * var(--obra-scale)) 0; 
+  padding: clamp(24px, 3.5vh, 50px) 0; 
 }
 .obra-content-row { 
   display: grid; 
   grid-template-columns: 1.15fr 1.9fr 1.25fr; 
-  gap: calc(clamp(30px, 4vw, 64px) * var(--obra-scale)); 
-  margin-bottom: calc(clamp(36px, 4.5vh, 76px) * var(--obra-scale)); 
+  gap: clamp(30px, 4vw, 64px); 
+  margin-bottom: clamp(36px, 4.5vh, 76px); 
   align-items: stretch; 
 }
 .obra-info-val { 
-  font-size: calc(clamp(24px, 2.6vw, 44px) * var(--obra-scale)); 
+  font-size: clamp(24px, 2.6vw, 44px); 
   font-weight: 700; 
   color: var(--text); 
-  margin-top: calc(clamp(10px, 1.2vh, 20px) * var(--obra-scale)); 
+  margin-top: clamp(10px, 1.2vh, 20px); 
 }
 .obra-info-label { 
   font-size: clamp(20px, 1.2vw, 32px); 
@@ -314,7 +296,7 @@ body.screen-46 {
   font-size: clamp(16px, 1vw, 24px) !important;
 }
 .obra-kpi-large {
-  font-size: calc(36px * var(--obra-scale)) !important;
+  font-size: clamp(28px, 2vw, 36px) !important;
 }
 .obra-kpi-med {
   font-size: clamp(16px, 1.4vw, 26px) !important;

@@ -8,18 +8,23 @@ if (typeof ChartDataLabels !== 'undefined') {
     Chart.defaults.plugins.datalabels.display = false; // Disable globally by default
 }
 
-// Automatic Screen Size Parameterization (46"+ vs <= 40")
+// Automatic Screen Size Parameterization
 function updateScreenSizeMode() {
     const body = document.body;
     const width = window.innerWidth || document.documentElement.clientWidth || screen.width;
     
-    body.classList.remove('screen-46', 'screen-40');
-    if (width <= 1600) {
-        // Screens <= 40" (60% reduction)
+    body.classList.remove('screen-20', 'screen-40', 'screen-60', 'screen-46', 'screen-46xl');
+
+    if (width < 800) {
+        body.classList.add('screen-20');
+    } else if (width < 1280) {
         body.classList.add('screen-40');
-    } else {
-        // Screens >= 46" (Full scale / current size)
+    } else if (width < 1600) {
+        body.classList.add('screen-60');
+    } else if (width <= 2400) {
         body.classList.add('screen-46');
+    } else {
+        body.classList.add('screen-46xl');
     }
 }
 

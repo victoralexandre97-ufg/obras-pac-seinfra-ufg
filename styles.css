@@ -255,12 +255,12 @@ td { font-size: clamp(12px, 1vw, 18px); font-weight: 400; color: var(--text); pa
 
 /* Obras Específicas (Slides 3, 4, 5) */
 .obra-title { 
-  font-size: clamp(38px, 5.5vw, 86px); 
+  font-size: clamp(24px, 3.2vw, 56px); 
   font-weight: 900; 
   color: var(--text); 
   letter-spacing: 0.02em; 
   text-align: center; 
-  margin-bottom: clamp(30px, 4vh, 70px); 
+  margin-bottom: clamp(18px, 2.5vh, 40px); 
   text-shadow: 0 0 16px rgba(255,255,255,0.1); 
 }
 .obra-container { 
@@ -271,20 +271,20 @@ td { font-size: clamp(12px, 1vw, 18px); font-weight: 400; color: var(--text); pa
   margin: auto; 
   width: 100%; 
   max-width: 2500px; 
-  padding: clamp(24px, 3.5vh, 50px) 0; 
+  padding: clamp(18px, 2.6vh, 40px) 0; 
 }
 .obra-content-row { 
   display: grid; 
   grid-template-columns: 1.15fr 1.9fr 1.25fr; 
-  gap: clamp(30px, 4vw, 64px); 
-  margin-bottom: clamp(36px, 4.5vh, 76px); 
+  gap: clamp(24px, 3vw, 48px); 
+  margin-bottom: clamp(28px, 3.6vh, 60px); 
   align-items: stretch; 
 }
 .obra-info-val { 
-  font-size: clamp(24px, 2.6vw, 44px); 
+  font-size: clamp(16px, 1.5vw, 28px); 
   font-weight: 700; 
   color: var(--text); 
-  margin-top: clamp(10px, 1.2vh, 20px); 
+  margin-top: clamp(6px, 0.8vh, 12px); 
 }
 .obra-info-label { 
   font-size: clamp(20px, 1.2vw, 32px); 

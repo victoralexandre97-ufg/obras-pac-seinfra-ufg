@@ -17,10 +17,14 @@ Repositório para página de análise de andamento das obras do PAC via SEINFRA 
 
 ### Escala adaptativa por tamanho de tela (`styles.css` + `app.js`)
 - O dashboard usa `clamp()` para tipografia e espaçamentos fluidos
-- Há uma parametrização por tamanho de tela via `--obra-scale`
-- Telas **≤1600px (≤40")** usam redução de escala para os slides de obras
-- Telas **≥1601px (46"+)** mantêm a escala padrão
-- A detecção acontece automaticamente pela largura da janela, com classes `body.screen-40` e `body.screen-46`
+- A responsividade agora é organizada em **cinco faixas de largura**:
+  - **< 800px** → `body.screen-20`
+  - **800–1279px** → `body.screen-40`
+  - **1280–1599px** → `body.screen-60`
+  - **1600–2400px** → `body.screen-46`
+  - **> 2400px** → `body.screen-46xl`
+- A detecção acontece automaticamente pela largura da janela no `app.js`
+- As classes são usadas para ajustar a escala global da interface e manter a leitura consistente em diferentes resoluções
 
 ### Visual
 - Tema escuro (`--bg: #09090D`)

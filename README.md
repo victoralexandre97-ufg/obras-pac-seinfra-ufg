@@ -30,7 +30,8 @@ Repositório para página de análise de andamento das obras do PAC via SEINFRA 
 - Tema escuro (`--bg: #09090D`)
 - Fontes Inter + JetBrains Mono
 - Tipografia fluida com `clamp()` aplicada aos principais componentes
-- Nos slides 3, 4 e 5, os rótulos de `CONTRATADA`, `Nº PROCESSO SEI` e `INÍCIO DA OBRA` mantêm o padrão visual, enquanto os valores desses campos foram reduzidos para melhorar a leitura em telas menores
+- Nos slides 3, 4 e 5, os rótulos de `CONTRATADA`, `Nº PROCESSO SEI` e `INÍCIO DA OBRA` mantêm o padrão visual
+- Os valores de `CONTRATADA` e `Nº PROCESSO SEI` foram reduzidos levemente, mantendo `INÍCIO DA OBRA` como estava, para melhorar a leitura em telas menores
 
 ### Dependências externas (CDN)
 | Biblioteca | Versão |

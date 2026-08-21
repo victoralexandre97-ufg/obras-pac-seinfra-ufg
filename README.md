@@ -15,16 +15,17 @@ Repositório para página de análise de andamento das obras do PAC via SEINFRA 
 - Dots clicáveis no rodapé para navegação manual
 - Relógio/data ao vivo no header (atualização a cada 1 segundo)
 
-### Autoajuste de tela (`app.js` + `styles.css`)
-- O dashboard agora usa **escala global automática** baseada no tamanho real da janela
-- A referência de layout é **1920x1080**, e o conteúdo é ajustado com `document.documentElement.style.zoom`
-- A lógica antiga de escala por **40" / 46"** foi removida
-- O objetivo é manter as proporções e legibilidade em telas pequenas e grandes sem reduzir agressivamente as fontes
+### Escala adaptativa por tamanho de tela (`styles.css` + `app.js`)
+- O dashboard usa `clamp()` para tipografia e espaçamentos fluidos
+- Há uma parametrização por tamanho de tela via `--obra-scale`
+- Telas **≤1600px (≤40")** usam redução de escala para os slides de obras
+- Telas **≥1601px (46"+)** mantêm a escala padrão
+- A detecção acontece automaticamente pela largura da janela, com classes `body.screen-40` e `body.screen-46`
 
 ### Visual
 - Tema escuro (`--bg: #09090D`)
 - Fontes Inter + JetBrains Mono
-- Tipografia e espaçamentos padronizados com valores fixos para manter consistência visual no autoajuste
+- Tipografia fluida com `clamp()` aplicada aos principais componentes
 
 ### Dependências externas (CDN)
 | Biblioteca | Versão |

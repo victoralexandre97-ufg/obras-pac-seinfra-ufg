@@ -8,36 +8,24 @@ if (typeof ChartDataLabels !== 'undefined') {
     Chart.defaults.plugins.datalabels.display = false; // Disable globally by default
 }
 
-// Automatic viewport fit
-const DESIGN_WIDTH = 1920;
-const DESIGN_HEIGHT = 1080;
-
-function updateViewportFit() {
-    const scale = Math.min(
-        window.innerWidth / DESIGN_WIDTH,
-        window.innerHeight / DESIGN_HEIGHT
-    );
-
-    document.documentElement.style.zoom = scale;
-
-    if (window.map) {
-        setTimeout(() => window.map.invalidateSize(), 50);
-    }
-
-    if (window.obraMaps) {
-        window.obraMaps.forEach((obraMap) => {
-            if (obraMap) {
-                setTimeout(() => obraMap.invalidateSize(), 50);
-            }
-        });
+// Automatic Screen Size Parameterization (46"+ vs <= 40")
+function updateScreenSizeMode() {
+    const body = document.body;
+    const width = window.innerWidth || document.documentElement.clientWidth || screen.width;
+    
+    body.classList.remove('screen-46', 'screen-40');
+    if (width <= 1600) {
+        // Screens <= 40" (60% reduction)
+        body.classList.add('screen-40');
+    } else {
+        // Screens >= 46" (Full scale / current size)
+        body.classList.add('screen-46');
     }
 }
 
-window.addEventListener('resize', () => {
-    updateViewportFit();
-});
-document.addEventListener('DOMContentLoaded', updateViewportFit);
-updateViewportFit();
+window.addEventListener('resize', updateScreenSizeMode);
+document.addEventListener('DOMContentLoaded', updateScreenSizeMode);
+updateScreenSizeMode();
 
 const formatCurrency = (val) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 }).format(val || 0);
 

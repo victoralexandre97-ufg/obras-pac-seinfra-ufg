@@ -45,29 +45,29 @@ body {
   flex-direction: column;
 }
 
-/* Typography (Requirement 1: Fluid with clamp()) */
-.logo-name { font-size: clamp(18px, 1.8vw, 32px); font-weight: 800; color: var(--cyan); letter-spacing: -0.5px; text-shadow: 0 0 24px rgba(0,212,255,0.35); }
-.logo-sub { font-size: clamp(10px, 0.9vw, 18px); font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: 0.12em; }
-.slide-title { font-size: clamp(16px, 1.8vw, 32px); font-weight: 800; color: var(--text); letter-spacing: 0.04em; }
+/* Typography */
+.logo-name { font-size: 32px; font-weight: 800; color: var(--cyan); letter-spacing: -0.5px; text-shadow: 0 0 24px rgba(0,212,255,0.35); }
+.logo-sub { font-size: 18px; font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: 0.12em; }
+.slide-title { font-size: 32px; font-weight: 800; color: var(--text); letter-spacing: 0.04em; }
 
-.kpi-label { font-size: clamp(11px, 0.9vw, 18px); font-weight: 800; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; }
-.kpi-value { font-size: clamp(22px, 2.5vw, 48px); font-weight: 800; font-family: 'JetBrains Mono', monospace; }
-.kpi-sub { font-size: clamp(10px, 0.8vw, 16px); font-weight: 500; color: rgba(255,255,255,0.7); }
+.kpi-label { font-size: 18px; font-weight: 800; color: var(--text2); text-transform: uppercase; letter-spacing: 0.05em; }
+.kpi-value { font-size: 48px; font-weight: 800; font-family: 'JetBrains Mono', monospace; }
+.kpi-sub { font-size: 16px; font-weight: 500; color: rgba(255,255,255,0.7); }
 
-.card-title { font-size: clamp(15px, 1.4vw, 24px); font-weight: 800; color: #ffffff; letter-spacing: 0.01em; margin-bottom: clamp(4px, 0.6vh, 10px); display: flex; align-items: center;}
-.card-title::before { content: ''; display: inline-block; width: clamp(4px, 0.35vw, 7px); height: clamp(16px, 1.8vh, 26px); border-radius: 3px; background-color: var(--cyan); margin-right: clamp(8px, 0.9vw, 14px);}
-.card-subtitle { font-size: clamp(12px, 1vw, 18px); font-weight: 500; color: var(--text2); }
+.card-title { font-size: 24px; font-weight: 800; color: #ffffff; letter-spacing: 0.01em; margin-bottom: 10px; display: flex; align-items: center;}
+.card-title::before { content: ''; display: inline-block; width: 7px; height: 26px; border-radius: 3px; background-color: var(--cyan); margin-right: 14px;}
+.card-subtitle { font-size: 18px; font-weight: 500; color: var(--text2); }
 
 /* Layout & General Classes */
 header {
-  height: clamp(55px, 8.5vh, 90px);
+  height: 90px;
   background-color: var(--surface);
   border-bottom: 1px solid var(--border);
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 clamp(20px, 2.5vw, 40px);
+  padding: 0 40px;
 }
 header::after {
   content: '';
@@ -80,34 +80,34 @@ header::after {
 }
 
 footer {
-  height: clamp(45px, 6.5vh, 70px);
+  height: 70px;
   background-color: var(--surface);
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 clamp(20px, 2.5vw, 40px);
+  padding: 0 40px;
 }
 
 .slides-container {
   flex: 1;
   position: relative;
   overflow: hidden;
-  padding: clamp(14px, 2vh, 30px) clamp(20px, 2.5vw, 40px);
+  padding: 30px 40px;
 }
 
 .sg-slide {
   position: absolute;
-  top: clamp(14px, 2vh, 30px);
-  left: clamp(20px, 2.5vw, 40px);
-  right: clamp(20px, 2.5vw, 40px);
-  bottom: clamp(14px, 2vh, 30px);
+  top: 30px;
+  left: 40px;
+  right: 40px;
+  bottom: 30px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s ease;
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 1.4vh, 24px);
+  gap: 24px;
 }
 .sg-slide.active {
   opacity: 1;
@@ -118,20 +118,20 @@ footer {
 .kpi-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(10px, 1.4vw, 24px);
+  gap: 24px;
 }
 .content-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(14px, 1.8vw, 28px);
+  gap: 28px;
   flex: 1;
 }
 
 /* Cards */
 .kpi-card {
   background-color: var(--surface);
-  border-radius: clamp(10px, 1vw, 18px);
-  padding: clamp(14px, 1.6vh, 28px) clamp(16px, 1.6vw, 28px);
+  border-radius: 18px;
+  padding: 28px 28px;
   border: 1px solid var(--border);
   position: relative;
   overflow: hidden;
@@ -142,8 +142,8 @@ footer {
 .kpi-card::after {
   content: '';
   position: absolute;
-  width: clamp(60px, 7vw, 120px);
-  height: clamp(60px, 7vw, 120px);
+  width: 120px;
+  height: 120px;
   background-color: currentColor;
   border-radius: 50%;
   opacity: 0.06;
@@ -151,19 +151,19 @@ footer {
   transform: translate(20px, -20px);
 }
 .kpi-card .icon-box {
-  width: clamp(32px, 3.8vh, 50px); 
-  height: clamp(32px, 3.8vh, 50px);
-  border-radius: clamp(8px, 0.7vw, 14px);
-  margin-bottom: clamp(6px, 1vh, 14px);
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  margin-bottom: 14px;
   display: flex; align-items: center; justify-content: center;
   background-color: rgba(255,255,255,0.05);
-  font-size: clamp(16px, 2vw, 28px);
+  font-size: 28px;
 }
 
 .content-card {
   background-color: var(--surface);
-  border-radius: clamp(10px, 1vw, 18px);
-  padding: clamp(16px, 2.2vh, 32px) clamp(20px, 2.2vw, 32px);
+  border-radius: 18px;
+  padding: 32px 32px;
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
@@ -175,7 +175,7 @@ footer {
   width: 100%;
   height: 100%;
   position: relative;
-  min-height: clamp(180px, 24vh, 400px);
+  min-height: 400px;
 }
 
 /* Enhanced Leaflet Dark Map Labels */
@@ -197,15 +197,15 @@ footer {
   background-color: rgba(0,230,118,0.1);
   border: 1px solid rgba(0,230,118,0.25);
   color: var(--ok);
-  font-size: clamp(11px, 0.8vw, 15px); 
+  font-size: 15px; 
   font-weight: 500;
-  padding: clamp(4px, 0.6vh, 8px) clamp(8px, 1vw, 14px); 
+  padding: 8px 14px; 
   border-radius: 12px;
-  display: flex; align-items: center; gap: clamp(6px, 0.6vw, 10px);
+  display: flex; align-items: center; gap: 10px;
 }
 .pulse-dot {
-  width: clamp(7px, 0.9vw, 11px); 
-  height: clamp(7px, 0.9vw, 11px);
+  width: 11px; 
+  height: 11px;
   background-color: var(--ok);
   border-radius: 50%;
   animation: pulse-dot 2s infinite;
@@ -236,49 +236,23 @@ footer {
 .c-blue { color: var(--blue); }
 
 /* Clock */
-.clock-time { font-family: 'JetBrains Mono'; font-size: clamp(20px, 2.2vw, 36px); font-weight: 600; color: var(--text); }
-.clock-date { font-size: clamp(10px, 0.85vw, 15px); font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: 0.08em; }
+.clock-time { font-family: 'JetBrains Mono'; font-size: 36px; font-weight: 600; color: var(--text); }
+.clock-date { font-size: 15px; font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: 0.08em; }
 
 /* Table */
 table { width: 100%; border-collapse: collapse; text-align: left; }
-th { font-size: clamp(11px, 0.9vw, 16px); font-weight: 800; color: var(--text2); text-transform: uppercase; padding: clamp(8px, 1vh, 14px) clamp(10px, 1.2vw, 18px); border-bottom: 1px solid rgba(255,255,255,0.05); }
-td { font-size: clamp(12px, 1vw, 18px); font-weight: 400; color: var(--text); padding: clamp(8px, 1vh, 14px) clamp(10px, 1.2vw, 18px); border-bottom: 1px solid rgba(255,255,255,0.03); }
+th { font-size: 16px; font-weight: 800; color: var(--text2); text-transform: uppercase; padding: 14px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+td { font-size: 18px; font-weight: 400; color: var(--text); padding: 14px 18px; border-bottom: 1px solid rgba(255,255,255,0.03); }
 .td-mono { font-family: 'JetBrains Mono', monospace; }
 
-/* Obras Específicas (Slides 3, 4, 5) - Parametrização para Telas 46"+ vs <= 40" */
-:root {
-  --obra-scale: 1; /* Padrão 46"+ (tamanho atual perfeito) */
-}
-
-/* Telas <= 40" (Redução de 60%, fator 0.4) */
-@media screen and (max-width: 1600px) {
-  :root {
-    --obra-scale: 0.4;
-  }
-}
-
-/* Telas >= 46" (Tamanho normal / atual) */
-@media screen and (min-width: 1601px) {
-  :root {
-    --obra-scale: 1;
-  }
-}
-
-body.screen-40 {
-  --obra-scale: 0.4;
-}
-
-body.screen-46 {
-  --obra-scale: 1;
-}
-
+/* Obras Específicas (Slides 3, 4, 5) */
 .obra-title { 
-  font-size: calc(clamp(38px, 5.5vw, 86px) * var(--obra-scale)); 
+  font-size: 86px; 
   font-weight: 900; 
   color: var(--text); 
   letter-spacing: 0.02em; 
   text-align: center; 
-  margin-bottom: calc(clamp(30px, 4vh, 70px) * var(--obra-scale)); 
+  margin-bottom: 70px; 
   text-shadow: 0 0 16px rgba(255,255,255,0.1); 
 }
 .obra-container { 
@@ -289,33 +263,33 @@ body.screen-46 {
   margin: auto; 
   width: 100%; 
   max-width: 2500px; 
-  padding: calc(clamp(24px, 3.5vh, 50px) * var(--obra-scale)) 0; 
+  padding: 50px 0; 
 }
 .obra-content-row { 
   display: grid; 
   grid-template-columns: 1.15fr 1.9fr 1.25fr; 
-  gap: calc(clamp(30px, 4vw, 64px) * var(--obra-scale)); 
-  margin-bottom: calc(clamp(36px, 4.5vh, 76px) * var(--obra-scale)); 
+  gap: 64px; 
+  margin-bottom: 76px; 
   align-items: stretch; 
 }
 .obra-info-val { 
-  font-size: calc(clamp(24px, 2.6vw, 44px) * var(--obra-scale)); 
+  font-size: 44px; 
   font-weight: 700; 
   color: var(--text); 
-  margin-top: calc(clamp(10px, 1.2vh, 20px) * var(--obra-scale)); 
+  margin-top: 20px; 
 }
 .obra-info-label { 
-  font-size: calc(clamp(16px, 1.5vw, 24px) * var(--obra-scale)); 
+  font-size: 24px; 
   color: var(--text2); 
   text-transform: uppercase; 
   letter-spacing: 0.05em; 
 }
 .obra-team-val {
-  font-size: calc(14px * var(--obra-scale)) !important;
+  font-size: 14px !important;
 }
 .obra-kpi-large {
-  font-size: calc(36px * var(--obra-scale)) !important;
+  font-size: 36px !important;
 }
 .obra-kpi-med {
-  font-size: calc(26px * var(--obra-scale)) !important;
+  font-size: 26px !important;
 }

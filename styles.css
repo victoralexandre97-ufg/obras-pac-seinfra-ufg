@@ -255,7 +255,7 @@ td { font-size: clamp(12px, 1vw, 18px); font-weight: 400; color: var(--text); pa
 
 /* Obras Específicas (Slides 3, 4, 5) */
 .obra-title { 
-  font-size: clamp(24px, 3.2vw, 56px); 
+  font-size: clamp(20px, 2.8vw, 48px); 
   font-weight: 900; 
   color: var(--text); 
   letter-spacing: 0.02em; 

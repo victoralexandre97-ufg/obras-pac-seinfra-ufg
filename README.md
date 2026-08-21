@@ -31,6 +31,7 @@ Repositório para página de análise de andamento das obras do PAC via SEINFRA 
 - Fontes Inter + JetBrains Mono
 - Tipografia fluida com `clamp()` aplicada aos principais componentes
 - Nos slides 3, 4 e 5, os rótulos de `CONTRATADA`, `Nº PROCESSO SEI` e `INÍCIO DA OBRA` mantêm o padrão visual
+- O título das obras nos slides 3, 4 e 5 foi reduzido para melhorar o encaixe visual
 - Os valores de `CONTRATADA` e `Nº PROCESSO SEI` agora usam o mesmo tamanho dos valores da equipe de fiscalização, mantendo `INÍCIO DA OBRA` como estava
 
 ### Dependências externas (CDN)
